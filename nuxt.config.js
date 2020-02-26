@@ -27,7 +27,7 @@ module.exports = {
   /*
    ** Global CSS
    */
-  css: [],
+  css: ['@/assets/scss/styles.scss'],
   /*
    ** Plugins to load before mounting the App
    */
@@ -51,6 +51,10 @@ module.exports = {
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv'
   ],
+  bootstrapVue: {
+    bootstrapCSS: false, // Or `css: false`
+    bootstrapVueCSS: false // Or `bvCSS: false`
+  },
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
