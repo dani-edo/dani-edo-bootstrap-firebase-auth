@@ -7,12 +7,20 @@
 <script>
 import * as firebase from 'firebase/app'
 import 'firebase/auth'
+import { getUserFromCookie } from '@/helpers'
 
 export default {
   asyncData({ req, redirect }) {
-    const user = firebase.auth().currentUser
-    if (!user) {
-      redirect('/login')
+    if (process.server) {
+      const user = getUserFromCookie(req)
+      if (!user) {
+        redirect('/login')
+      }
+    } else {
+      const user = firebase.auth().currentUser
+      if (!user) {
+        redirect('/login')
+      }
     }
   }
 }

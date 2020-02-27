@@ -21,6 +21,7 @@
 <script>
 import * as firebase from 'firebase/app'
 import 'firebase/auth'
+import Cookies from 'js-cookie'
 
 export default {
   data() {
@@ -34,8 +35,15 @@ export default {
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
           this.loggedIn = true
+          firebase
+            .auth()
+            .currentUser.getIdToken(true)
+            .then((token) => {
+              Cookies.set('access_token', token)
+            })
         } else {
           this.loggedIn = false
+          Cookies.remove('access_token')
         }
       })
     },
