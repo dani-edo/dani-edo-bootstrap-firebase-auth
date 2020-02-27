@@ -10,9 +10,7 @@ import 'firebase/auth'
 
 export default {
   asyncData({ req, redirect }) {
-    console.log('req => ', req, 'redirect => ', redirect)
     const user = firebase.auth().currentUser
-    console.log('firebase.auth().currentUser => ', user)
     if (!user) {
       redirect('/login')
     }

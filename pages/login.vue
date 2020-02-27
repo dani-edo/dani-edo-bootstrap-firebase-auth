@@ -68,22 +68,18 @@ export default {
   },
   methods: {
     onSubmit(e) {
-      console.log(e, ' -> submit')
       firebase
         .auth()
         .signInWithEmailAndPassword(this.form.email, this.form.password)
         .then((data) => {
-          console.log(data)
           this.$router.push('/secret')
         })
         .catch((error) => {
-          console.log(error)
           this.form.error = error.message
         })
     },
     onReset(e) {
       this.clearForm()
-      console.log(e, ' -> submit')
     },
     clearForm() {
       this.form = {

@@ -32,7 +32,6 @@ export default {
   methods: {
     setFirebase() {
       firebase.auth().onAuthStateChanged((user) => {
-        console.log('user => ', user)
         if (user) {
           this.loggedIn = true
         } else {

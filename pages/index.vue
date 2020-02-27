@@ -9,20 +9,51 @@
         Login to see the awesome secret page
       </h2>
       <div class="links">
-        <nuxt-link to="/login" class="button--green">
+        <nuxt-link v-if="!loggedIn" to="/login" class="button--green">
           Login
         </nuxt-link>
+        <b-button
+          v-else
+          class="button--green text-white"
+          @click.prevent="logout"
+        >
+          Logout
+        </b-button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import * as firebase from 'firebase/app'
+import 'firebase/auth'
 import Logo from '~/components/Logo.vue'
 
 export default {
   components: {
     Logo
+  },
+  data() {
+    return {
+      loggedIn: false
+    }
+  },
+  mounted() {
+    this.initFirebaseAuth()
+  },
+  methods: {
+    initFirebaseAuth() {
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          this.loggedIn = true
+        } else {
+          this.loggedIn = false
+        }
+      })
+    },
+    logout() {
+      firebase.auth().signOut()
+    }
   }
 }
 </script>
