@@ -9,11 +9,7 @@
       >
         <h1>Login</h1>
         <b-form @submit.prevent="onSubmit" @reset="onReset">
-          <b-form-group
-            label="Email address:"
-            label-for="email"
-            description="If you don't have and email, please contact administrator"
-          >
+          <b-form-group label="Email Address" label-for="email">
             <b-form-input
               id="email"
               v-model="form.email"
@@ -22,48 +18,79 @@
               placeholder="Enter registered email..."
             ></b-form-input>
           </b-form-group>
-          <b-form-group>
+          <b-form-group label="Password" label-for="password">
             <b-input
+              id="password"
               v-model="form.password"
               type="password"
               aria-describedby="password-help"
               placeholder="Enter a valid password.."
             />
-            <b-form-text id="password-help"
+            <!-- <b-form-text id="password-help"
               >Password must be password</b-form-text
-            >
+            > -->
           </b-form-group>
 
-          <b-button type="submit" variant="primary" class="text-white"
-            >Submit</b-button
-          >
-          <b-button type="reset" variant="danger">Reset</b-button>
+          <b-form-invalid-feedback v-if="form.error !== ''">{{
+            form.error
+          }}</b-form-invalid-feedback>
+          <b-form-group class="mt-3">
+            <b-button type="submit" variant="primary" class="text-white"
+              >Submit</b-button
+            >
+            <b-button type="reset" variant="danger">Reset</b-button>
+          </b-form-group>
         </b-form>
       </b-card>
+      <div class="demo-auth">
+        <h3>Demo Account</h3>
+        Email: dani@edo.com
+        <br />
+        Pass: 123456
+      </div>
     </b-container>
   </div>
 </template>
 
 <script>
+import * as firebase from 'firebase/app'
+import 'firebase/auth'
+
 export default {
   data() {
     return {
       form: {
         email: '',
-        password: ''
+        password: '',
+        error: ''
       }
     }
   },
   methods: {
     onSubmit(e) {
       console.log(e, ' -> submit')
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.form.email, this.form.password)
+        .then((data) => {
+          console.log(data)
+          this.$router.push('/secret')
+        })
+        .catch((error) => {
+          console.log(error)
+          this.form.error = error.message
+        })
     },
     onReset(e) {
+      this.clearForm()
+      console.log(e, ' -> submit')
+    },
+    clearForm() {
       this.form = {
         email: '',
-        password: ''
+        password: '',
+        error: ''
       }
-      console.log(e, ' -> submit')
     }
   }
 }
@@ -75,5 +102,18 @@ export default {
 }
 .container {
   height: 100vh;
+}
+img {
+  height: 350px;
+  object-fit: cover;
+}
+.invalid-feedback {
+  display: block !important;
+}
+.demo-auth {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding: 20px;
 }
 </style>
