@@ -1,6 +1,5 @@
 # dani-edo-bootstrap-firebase-auth
 
-## App Description
 A simple application for my practice on Authentication using the Nuxt Framework and Firebase Console.
 
 ## Depedencies
