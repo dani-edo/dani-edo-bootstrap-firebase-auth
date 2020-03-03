@@ -3,6 +3,7 @@
 A simple application for my practice on Authentication using the Nuxt Framework and Firebase Console.
 
 ## Depedencies
+```
    "@nuxtjs/axios": "^5.3.6",
    "@nuxtjs/dotenv": "^1.4.0",
    "@nuxtjs/pwa": "^3.0.0-0",
@@ -15,6 +16,7 @@ A simple application for my practice on Authentication using the Nuxt Framework 
    "js-cookie": "^2.2.1",
    "jwt-decode": "^2.2.0",
    "nuxt": "^2.0.0"
+ ```
 Or you can check on package.json file
 
 ## Features
